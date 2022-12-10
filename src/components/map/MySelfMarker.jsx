@@ -12,7 +12,7 @@ const MySelfMarker = () => {
 
     useEffect(() => {
         const interval = setInterval(async () => {
-            if (user && geoLocation) {
+            if (pb && user && geoLocation) {
                 const data = {
                     coordinates: JSON.stringify({ lat: geoLocation.latitude, lng: geoLocation.longitude }),
                 }

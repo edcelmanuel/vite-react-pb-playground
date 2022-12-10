@@ -10,6 +10,8 @@ function App() {
     const pb = useStorePocketBase((s) => s.pb)
     const setUsers = useStoreUsers((s) => s.setUsers)
     const setGeoLocation = useStoreGeoLocation((s) => s.setGeoLocation)
+    const updateUser = useStoreUsers((s) => s.updateUser)
+    const addUser = useStoreUsers((s) => s.addUser)
 
     const geolocation = useGeolocation({
         enableHighAccuracy: true,
@@ -34,6 +36,20 @@ function App() {
                 .then((records) => {
                     setUsers(records)
                 })
+            pb.collection("locations").subscribe("*", function (e) {
+                console.log("listener", e)
+                if (e.action === "create") {
+                    addUser(e.record)
+                } else if (e.action === "update") {
+                    updateUser(e.record)
+                }
+            })
+        }
+
+        return () => {
+            if (pb) {
+                pb.collection("locations").unsubscribe("*")
+            }
         }
     }, [pb])
 
