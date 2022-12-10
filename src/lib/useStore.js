@@ -5,6 +5,8 @@ const useStoreUsers = create((set) => ({
     setUsers: (payload) => set({ users: payload }),
     user: null,
     setUser: (payload) => set({ user: payload }),
+    updateUser: (payload) =>
+        set((state) => ({ users: state.users.map((item) => (item.id === payload.id ? payload : item)) })),
 }))
 
 const useStorePocketBase = create((set) => ({
