@@ -8,10 +8,8 @@ import PBLoader from "./components/PBLoader"
 
 function App() {
     const pb = useStorePocketBase((s) => s.pb)
-    const users = useStoreUsers((s) => s.users)
     const setUsers = useStoreUsers((s) => s.setUsers)
     const setGeoLocation = useStoreGeoLocation((s) => s.setGeoLocation)
-    const updateUser = useStoreUsers((s) => s.updateUser)
 
     const geolocation = useGeolocation({
         enableHighAccuracy: true,
@@ -36,16 +34,6 @@ function App() {
                 .then((records) => {
                     setUsers(records)
                 })
-            pb.collection("locations").subscribe("*", function (e) {
-                console.log("listener", e.record)
-                updateUser(e.record)
-            })
-        }
-
-        return () => {
-            if (pb) {
-                pb.collection("locations").unsubscribe("*")
-            }
         }
     }, [pb])
 

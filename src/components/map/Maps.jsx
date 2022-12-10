@@ -23,12 +23,6 @@ function Maps() {
     })
 
     const onLoad = useCallback(function callback(map) {
-        // This is just an example of getting and using the map instance!!! don't just blindly copy!
-        // const bounds = new window.google.maps.LatLngBounds(
-        //   defaultCenter.coordinate
-        // );
-        // map.fitBounds(bounds);
-
         setMap(map)
     }, [])
 
@@ -49,6 +43,7 @@ function Maps() {
                 >
                     {/* Child components, such as markers, info windows, etc. */}
                     <></>
+                    <div>asd</div>
                     <MySelfMarker />
                     <OtherUsers />
                 </GoogleMap>

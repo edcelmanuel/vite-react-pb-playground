@@ -5,6 +5,7 @@ const useStoreUsers = create((set) => ({
     setUsers: (payload) => set({ users: payload }),
     user: null,
     setUser: (payload) => set({ user: payload }),
+    addUser: (payload) => set((state) => ({ users: [...state.users, payload] })),
     updateUser: (payload) =>
         set((state) => ({ users: state.users.map((item) => (item.id === payload.id ? payload : item)) })),
 }))
