@@ -9,7 +9,7 @@ function App() {
     const pb = new PocketBase("https://test.pb.monggihub.com")
     const setPb = useStorePocketBase((s) => s.setPb)
     const users = useStoreUsers((s) => s.users)
-    const setUsers = useStoreUsers((s) => s.setUser)
+    const setUsers = useStoreUsers((s) => s.setUsers)
     const setGeoLocation = useStoreGeoLocation((s) => s.setGeoLocation)
 
     const geolocation = useGeolocation({
@@ -22,23 +22,27 @@ function App() {
         if (geolocation.error) {
             setGeoLocation(null)
         } else {
-            console.log(geolocation)
             setGeoLocation(geolocation)
         }
     }, [geolocation])
 
     useEffect(() => {
         if (!users) {
-            console.log(users)
             pb.collection("locations")
                 .getFullList(200, {
                     sort: "-created",
                 })
                 .then((records) => {
                     setUsers(records)
-                    console.log(records)
                 })
             setPb(pb)
+
+            pb.collection("locations").subscribe("*", function (e) {
+                console.log("listener", e.record)
+            })
+        }
+        return () => {
+            pb.collection("locations").unsubscribe("*")
         }
     }, [users])
 

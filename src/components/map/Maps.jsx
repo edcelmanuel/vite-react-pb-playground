@@ -2,6 +2,7 @@ import { useState } from "react"
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api"
 import { useCallback } from "react"
 import MySelfMarker from "./MySelfMarker"
+import OtherUsers from "./OtherUsers"
 
 function Maps() {
     const [map, setMap] = useState(null)
@@ -49,6 +50,7 @@ function Maps() {
                     {/* Child components, such as markers, info windows, etc. */}
                     <></>
                     <MySelfMarker />
+                    <OtherUsers />
                 </GoogleMap>
             ) : (
                 <></>
